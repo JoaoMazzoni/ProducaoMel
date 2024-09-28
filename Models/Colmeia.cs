@@ -8,8 +8,6 @@ namespace Models
         public string Localizacao { get; set; }
         public DateTime DataInstalacao { get; set; }
         public int NumeroAbelhas { get; set; }
-
-        [AllowedValues("Saudável", "Doente", "Monitorada")]
         public string EstadoSaude { get; set; } 
         public string EspecieAbelhas { get; set; }
     }

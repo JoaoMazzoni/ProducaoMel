@@ -1,5 +1,6 @@
 ﻿using Models;
 using ProducaoMel.Controller;
+using System.Globalization;
 
 namespace ProducaoMel.Views
 {
@@ -11,27 +12,41 @@ namespace ProducaoMel.Views
         {
             _colmeiaController = new ColmeiaController();
         }
+
         public void MenuColmeia()
         {
+            Console.WriteLine("===== Gerenciamento de Colmeias =====\n");
             Console.WriteLine("1 - Adicionar Colmeia");
             Console.WriteLine("2 - Atualizar Colmeia");
             Console.WriteLine("3 - Deletar Colmeia");
             Console.WriteLine("4 - Listar Colmeias");
             Console.WriteLine("5 - Visualizar Colmeia por ID");
             Console.WriteLine("6 - Voltar");
+            Console.Write("\nEscolha uma opção: ");
         }
 
         public void AdicionarColmeia()
         {
-            Console.WriteLine("Digite a localização da colmeia: ");
+            Console.Clear();
+            Console.WriteLine("=== ADICIONAR NOVA COLMEIA ===\n");
+
+            Console.Write("Digite a localização da colmeia: ");
             string localizacao = Console.ReadLine();
-            Console.WriteLine("Digite a data de instalação da colmeia: ");
-            DateTime dataInstalacao = DateTime.Parse(Console.ReadLine());
-            Console.WriteLine("Digite o número de abelhas da colmeia: ");
+
+            Console.Write("Digite a data de instalação da colmeia (dd/MM/yyyy): ");
+            DateTime dataInstalacao;
+            while (!DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dataInstalacao))
+            {
+                Console.Write("Formato inválido. Tente novamente (dd/MM/yyyy): ");
+            }
+
+            Console.Write("Digite o número de abelhas da colmeia: ");
             int numeroAbelhas = int.Parse(Console.ReadLine());
-            Console.WriteLine("Digite o estado de saúde da colmeia: ");
+
+            Console.Write("Digite o estado de saúde da colmeia: ");
             string estadoSaude = Console.ReadLine();
-            Console.WriteLine("Digite a espécie de abelhas da colmeia: ");
+
+            Console.Write("Digite a espécie de abelhas da colmeia: ");
             string especieAbelhas = Console.ReadLine();
 
             Colmeia colmeia = new Colmeia
@@ -44,22 +59,39 @@ namespace ProducaoMel.Views
             };
 
             _colmeiaController.AddColmeia(colmeia);
-
+            Console.Clear();
+            Console.WriteLine("Colmeia adicionada com sucesso!\n");
         }
 
         public void AtualizarColmeia()
         {
-            Console.WriteLine("Digite o ID da colmeia que deseja atualizar: ");
+            Console.Clear();
+            Console.WriteLine("=== ATUALIZAR COLMEIA ===\n");
+
+            Console.Write("Digite o ID da colmeia que deseja atualizar: ");
             int id = int.Parse(Console.ReadLine());
-            Console.WriteLine("Digite a localização da colmeia: ");
+
+            Console.WriteLine();
+            ImprimirColmeiaById(id);
+            Console.WriteLine();
+
+            Console.Write("Digite a localização da colmeia: ");
             string localizacao = Console.ReadLine();
-            Console.WriteLine("Digite a data de instalação da colmeia: ");
-            DateTime dataInstalacao = DateTime.Parse(Console.ReadLine());
-            Console.WriteLine("Digite o número de abelhas da colmeia: ");
+
+            Console.Write("Digite a data de instalação da colmeia (dd/MM/yyyy): ");
+            DateTime dataInstalacao;
+            while (!DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dataInstalacao))
+            {
+                Console.Write("Formato inválido. Tente novamente (dd/MM/yyyy): ");
+            }
+
+            Console.Write("Digite o número de abelhas da colmeia: ");
             int numeroAbelhas = int.Parse(Console.ReadLine());
-            Console.WriteLine("Digite o estado de saúde da colmeia: ");
+
+            Console.Write("Digite o estado de saúde da colmeia: ");
             string estadoSaude = Console.ReadLine();
-            Console.WriteLine("Digite a espécie de abelhas da colmeia: ");
+
+            Console.Write("Digite a espécie de abelhas da colmeia: ");
             string especieAbelhas = Console.ReadLine();
 
             Colmeia colmeia = new Colmeia
@@ -73,50 +105,92 @@ namespace ProducaoMel.Views
             };
 
             _colmeiaController.UpdateColmeia(colmeia);
+            Console.Clear();
+            Console.WriteLine("Colmeia atualizada com sucesso!\n");
         }
 
         public void DeletarColmeia()
         {
-            Console.WriteLine("Digite o ID da colmeia que deseja deletar: ");
+            Console.Clear();
+            Console.WriteLine("=== DELETAR COLMEIA ===\n");
+
+            Console.Write("Digite o ID da colmeia que deseja deletar: ");
             int id = int.Parse(Console.ReadLine());
+            
             _colmeiaController.DeleteColmeia(id);
+            Console.Clear();
         }
 
         public void ListarColmeias()
         {
+            Console.Clear();
+            Console.WriteLine("=== LISTAR TODAS AS COLMEIAS ===\n");
+
             List<Colmeia> colmeias = _colmeiaController.GetAllColmeias();
             foreach (var colmeia in colmeias)
             {
-                Console.WriteLine("ID: " + colmeia.ID);
-                Console.WriteLine("Localização: " + colmeia.Localizacao);
-                Console.WriteLine("Data de Instalação: " + colmeia.DataInstalacao);
-                Console.WriteLine("Número de abelhas: " + colmeia.NumeroAbelhas);
-                Console.WriteLine("Estado de saúde: " + colmeia.EstadoSaude);
-                Console.WriteLine("Espécie de abelhas: " + colmeia.EspecieAbelhas);
+                Console.WriteLine($"ID: {colmeia.ID}");
+                Console.WriteLine($"Localização: {colmeia.Localizacao}");
+                Console.WriteLine($"Data de Instalação: {colmeia.DataInstalacao.ToString("dd/MM/yyyy")}");
+                Console.WriteLine($"Número de abelhas: {colmeia.NumeroAbelhas}");
+                Console.WriteLine($"Estado de saúde: {colmeia.EstadoSaude}");
+                Console.WriteLine($"Espécie de abelhas: {colmeia.EspecieAbelhas}");
                 Console.WriteLine("-------------------------------------------------");
             }
+
+            Console.WriteLine();
         }
 
         public void VisualizarColmeia()
         {
-            Console.WriteLine("Digite o ID da colmeia que deseja visualizar: ");
+            Console.Clear();
+            Console.WriteLine("=== VISUALIZAR COLMEIA ===\n");
+
+            Console.Write("Digite o ID da colmeia que deseja visualizar: ");
             int id = int.Parse(Console.ReadLine());
+
             Colmeia colmeia = _colmeiaController.GetColmeiaById(id);
-            Console.WriteLine("ID: " + colmeia.ID);
-            Console.WriteLine("Localização: " + colmeia.Localizacao);
-            Console.WriteLine("Data de Instalação: " + colmeia.DataInstalacao);
-            Console.WriteLine("Número de abelhas: " + colmeia.NumeroAbelhas);
-            Console.WriteLine("Estado de saúde: " + colmeia.EstadoSaude);
-            Console.WriteLine("Espécie de abelhas: " + colmeia.EspecieAbelhas);
+
+            Console.WriteLine($"ID: {colmeia.ID}");
+            Console.WriteLine($"Localização: {colmeia.Localizacao}");
+            Console.WriteLine($"Data de Instalação: {colmeia.DataInstalacao.ToString("dd/MM/yyyy")}");
+            Console.WriteLine($"Número de abelhas: {colmeia.NumeroAbelhas}");
+            Console.WriteLine($"Estado de saúde: {colmeia.EstadoSaude}");
+            Console.WriteLine($"Espécie de abelhas: {colmeia.EspecieAbelhas}");
+            Console.WriteLine();
+        }
+
+        public void ImprimirColmeiaById(int id)
+        {
+            Colmeia colmeia = _colmeiaController.GetColmeiaById(id);
+
+            if (colmeia.ID == 0)
+            {
+                Console.WriteLine("Colmeia não encontrada.");
+                Console.Write("\nPressione qualquer tecla para continuar: ");
+                Console.ReadLine();
+                ExecutarMenuColmeia();
+            }
+
+            Console.WriteLine("\n--- COLMEIA ATUAL ---\n");
+            Console.WriteLine($"ID: {colmeia.ID}");
+            Console.WriteLine($"Localização: {colmeia.Localizacao}");
+            Console.WriteLine($"Data de Instalação: {colmeia.DataInstalacao.ToString("dd/MM/yyyy")}");
+            Console.WriteLine($"Número de abelhas: {colmeia.NumeroAbelhas}");
+            Console.WriteLine($"Estado de saúde: {colmeia.EstadoSaude}");
+            Console.WriteLine($"Espécie de abelhas: {colmeia.EspecieAbelhas}");
         }
 
         public void ExecutarMenuColmeia()
         {
-            int opcao = 0;
+            int opcao;
             do
             {
+                Console.Clear();
                 MenuColmeia();
                 opcao = int.Parse(Console.ReadLine());
+                Console.Clear();
+
                 switch (opcao)
                 {
                     case 1:
@@ -140,7 +214,9 @@ namespace ProducaoMel.Views
                         Console.WriteLine("Opção inválida!");
                         break;
                 }
-            } while (opcao != 5);
+
+  
+            } while (opcao != 6);
         }
     }
 }

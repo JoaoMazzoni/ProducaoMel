@@ -1,17 +1,16 @@
-﻿using Microsoft.Data.Sqlite;
-
+﻿using System.Data.SQLite;
 
 namespace ProducaoMel.DALL
 {
     public class DALProducaoMel
     {
-        private static SqliteConnection sQLiteConnection;
+        private static SQLiteConnection sQLiteConnection;
 
-        public static string path = Directory.GetCurrentDirectory() + "\\ProducaoMel.db";
+        public static string path = "C:\\Users\\João Mazzoni\\source\\repos\\ProducaoMel\\DBProducao";
         
-        public SqliteConnection DbConnection()
+        public SQLiteConnection DbConnection()
         {
-            sQLiteConnection = new SqliteConnection("Data Source=" + path);
+            sQLiteConnection = new SQLiteConnection("Data Source=" + path);
             sQLiteConnection.Open();
             return sQLiteConnection;
         }

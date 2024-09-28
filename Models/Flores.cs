@@ -6,8 +6,6 @@ namespace Models
     {
         public int ID { get; set; }
         public string Nome { get; set; }
-
-        [AllowedValues("Silvestre", "Cultivada")]
         public string Tipo { get; set; } 
         public string PeriodoFloracao { get; set; }
         public string Origem { get; set; }

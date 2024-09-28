@@ -9,8 +9,6 @@ namespace Models
         public int? ColmeiaID { get; set; } 
         public int? MelID { get; set; } 
         public double QuantidadeColhida { get; set; }
-
-        [AllowedValues("Excelente", "Boa", "Regular", "Ruim")]
         public string QualidadeFinal { get; set; } 
     }
 

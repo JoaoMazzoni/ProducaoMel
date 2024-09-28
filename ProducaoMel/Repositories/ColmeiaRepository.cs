@@ -20,7 +20,7 @@ namespace ProducaoMel.Repositories
             {
                 using (var cmd = _dalProducaoMel.DbConnection().CreateCommand())
                 {
-                    cmd.CommandText = "INSERT INTO Colmeia(Localizacao, DataInstalacao, NumeroAbelhas, EstadoSaude, EspecieAbelhas) VALUES (@Localizacao, @Data_instalacao, @Numero_abelhas, @Estado_saude, @Especie_abelhas)";
+                    cmd.CommandText = "INSERT INTO Colmeia(Localizacao, Data_instalacao, Numero_abelhas, Estado_saude, Especie_abelhas) VALUES (@Localizacao, @Data_instalacao, @Numero_abelhas, @Estado_saude, @Especie_abelhas)";
                     cmd.Parameters.AddWithValue("@Localizacao", colmeia.Localizacao);
                     cmd.Parameters.AddWithValue("@Data_instalacao", colmeia.DataInstalacao);
                     cmd.Parameters.AddWithValue("@Numero_abelhas", colmeia.NumeroAbelhas);
@@ -56,7 +56,7 @@ namespace ProducaoMel.Repositories
             {
                 using (var cmd = _dalProducaoMel.DbConnection().CreateCommand())
                 {
-                    cmd.CommandText = "UPDATE Colmeia SET Localizacao = @Localizacao, DataInstalacao = @Data_instalacao, NumeroAbelhas = @Numero_abelhas, EstadoSaude = @Estado_saude, EspecieAbelhas = @Especie_abelhas WHERE ID = @ID";
+                    cmd.CommandText = "UPDATE Colmeia SET Localizacao = @Localizacao, Data_instalacao = @Data_instalacao, Numero_abelhas = @Numero_abelhas, Estado_saude = @Estado_saude, Especie_abelhas = @Especie_abelhas WHERE ID = @ID";
                     cmd.Parameters.AddWithValue("@Localizacao", colmeia.Localizacao);
                     cmd.Parameters.AddWithValue("@Data_instalacao", colmeia.DataInstalacao);
                     cmd.Parameters.AddWithValue("@Numero_abelhas", colmeia.NumeroAbelhas);
@@ -95,11 +95,15 @@ namespace ProducaoMel.Repositories
 
                     if (linhasAfetadas == 0)
                     {
-                        Console.WriteLine("Erro ao deletar registro!");
+                        Console.WriteLine("\nErro ao deletar registro. Nenhuma colmeia foi delatada.");
+                        Console.Write("\nPressione qualquer tecla para continuar: ");
+                        Console.ReadLine();
                     }
                     else
                     {
-                        Console.WriteLine("Registro de Colmeia deletado com sucesso!");
+                        Console.WriteLine("\nRegistro de Colmeia deletado com sucesso!");
+                        Console.Write("\nPressione qualquer tecla para continuar: ");
+                        Console.ReadLine();
                     }
                 }
             }

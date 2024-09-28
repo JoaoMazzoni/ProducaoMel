@@ -20,7 +20,7 @@ namespace ProducaoMel.Repositories
             {
                 using (var cmd = _dalProducaoMel.DbConnection().CreateCommand())
                 {
-                    cmd.CommandText = "INSERT INTO Flores(Nome, Tipo, PeriodoFloracao, Origem, AtracaoAbelhas) VALUES (@Nome, @Tipo, @Periodo_floracao, @Origem, @Atracao_abelhas)";
+                    cmd.CommandText = "INSERT INTO Flores(Nome, Tipo, Periodo_floracao, Origem, Atracao_abelhas) VALUES (@Nome, @Tipo, @Periodo_floracao, @Origem, @Atracao_abelhas)";
                     cmd.Parameters.AddWithValue("@Nome", flores.Nome);
                     cmd.Parameters.AddWithValue("@Tipo", flores.Tipo);
                     cmd.Parameters.AddWithValue("@Periodo_floracao", flores.PeriodoFloracao);
@@ -53,7 +53,7 @@ namespace ProducaoMel.Repositories
             {
                 using (var cmd = _dalProducaoMel.DbConnection().CreateCommand())
                 {
-                    cmd.CommandText = "UPDATE Flores SET Nome = @Nome, Tipo = @Tipo, PeriodoFloracao = @Periodo_floracao, Origem = @Origem, AtracaoAbelhas = @Atracao_abelhas WHERE ID = @ID";
+                    cmd.CommandText = "UPDATE Flores SET Nome = @Nome, Tipo = @Tipo, Periodo_floracao = @Periodo_floracao, Origem = @Origem, Atracao_abelhas = @Atracao_abelhas WHERE ID = @ID";
                     cmd.Parameters.AddWithValue("@ID", flores.ID);
                     cmd.Parameters.AddWithValue("@Nome", flores.Nome);
                     cmd.Parameters.AddWithValue("@Tipo", flores.Tipo);
@@ -91,11 +91,15 @@ namespace ProducaoMel.Repositories
 
                     if (linhasAfetadas == 0)
                     {
-                        Console.WriteLine("Erro ao deletar registro!");
+                        Console.WriteLine("Erro ao deletar registro! Nenhuma flor foi deletada.");
+                        Console.Write("\nPressione qualquer tecla para continuar: ");
+                        Console.ReadLine();
                     }
                     else
                     {
                         Console.WriteLine("Registro de Flores deletado com sucesso!");
+                        Console.Write("\nPressione qualquer tecla para continuar: ");
+                        Console.ReadLine();
                     }
                 }
             }

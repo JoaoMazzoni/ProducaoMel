@@ -19,7 +19,7 @@ namespace ProducaoMel.Repositories
             {
                 using (var cmd = _dalProducaoMel.DbConnection().CreateCommand())
                 {
-                    cmd.CommandText = "INSERT INTO Producao(DataColheita, ColmeiaID, MelID, QuantidadeColhida, QualidadeFinal) VALUES (@Data_colheita, @ColmeiaID, @MelID, @Quantidade_colhida, @Qualidade_final)";
+                    cmd.CommandText = "INSERT INTO Producao(Data_colheita, ColmeiaID, MelID, Quantidade_colhida, Qualidade_final) VALUES (@Data_colheita, @ColmeiaID, @MelID, @Quantidade_colhida, @Qualidade_final)";
                     cmd.Parameters.AddWithValue("@Data_colheita", producao.DataColheita);
                     cmd.Parameters.AddWithValue("@ColmeiaID", producao.ColmeiaID);
                     cmd.Parameters.AddWithValue("@MelID", producao.MelID);
@@ -51,7 +51,7 @@ namespace ProducaoMel.Repositories
             {
                 using (var cmd = _dalProducaoMel.DbConnection().CreateCommand())
                 {
-                    cmd.CommandText = "UPDATE Producao SET DataColheita = @Data_colheita, ColmeiaID = @ColmeiaID, MelID = @MelID, QuantidadeColhida = @Quantidade_colhida, QualidadeFinal = @Qualidade_final WHERE Lote = @Lote";
+                    cmd.CommandText = "UPDATE Producao SET Data_colheita = @Data_colheita, ColmeiaID = @ColmeiaID, MelID = @MelID, Quantidade_colhida = @Quantidade_colhida, Qualidade_final = @Qualidade_final WHERE Lote = @Lote";
                     cmd.Parameters.AddWithValue("@Data_colheita", producao.DataColheita);
                     cmd.Parameters.AddWithValue("@ColmeiaID", producao.ColmeiaID);
                     cmd.Parameters.AddWithValue("@MelID", producao.MelID);

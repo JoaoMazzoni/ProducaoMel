@@ -93,11 +93,15 @@ namespace ProducaoMel.Repositories
 
                     if (linhasAfetadas == 0)
                     {
-                        Console.WriteLine("Erro ao deletar registro!");
+                        Console.WriteLine("Erro ao deletar registro! Nenhum mel foi deletado.");
+                        Console.Write("\nPressione qualquer tecla para continuar: ");
+                        Console.ReadLine();
                     }
                     else
                     {
                         Console.WriteLine("Registro de Mel deletado com sucesso!");
+                        Console.Write("\nPressione qualquer tecla para continuar: ");
+                        Console.ReadLine();
                     }
                 }
             }
