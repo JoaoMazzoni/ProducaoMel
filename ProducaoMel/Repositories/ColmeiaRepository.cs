@@ -30,11 +30,15 @@ namespace ProducaoMel.Repositories
 
                     if (linhasAfetadas == 0)
                     {
-                        Console.WriteLine("Erro ao inserir registro!");
+                        Console.WriteLine("\nErro ao inserir registro!");
+                        Console.Write("\nPressione qualquer tecla para continuar: ");
+                        Console.ReadLine();
                     }
                     else
                     {
-                        Console.WriteLine("Registro de Colmeia inserido com sucesso!");
+                        Console.WriteLine("\nRegistro de Colmeia inserido com sucesso!");
+                        Console.Write("\nPressione qualquer tecla para continuar: ");
+                        Console.ReadLine();
                     }
 
 
@@ -67,11 +71,15 @@ namespace ProducaoMel.Repositories
 
                     if (linhasAfetadas == 0)
                     {
-                        Console.WriteLine("Erro ao atualizar registro!");
+                        Console.WriteLine("\nErro ao atualizar registro!");
+                        Console.Write("\nPressione qualquer tecla para continuar: ");
+                        Console.ReadLine();
                     }
                     else
                     {
-                        Console.WriteLine("Registro de Colmeia atualizado com sucesso!");
+                        Console.WriteLine("\nRegistro de Colmeia atualizado com sucesso!");
+                        Console.Write("\nPressione qualquer tecla para continuar: ");
+                        Console.ReadLine();
                     }
                 }
             }

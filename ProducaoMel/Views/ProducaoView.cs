@@ -14,6 +14,8 @@ namespace ProducaoMel.Views
 
         public void MenuProducao()
         {
+            Console.Clear();
+            Console.WriteLine("===== GESTÃO DE PRODUÇÃO =====\n");
             Console.WriteLine("|1 - Adicionar Produção");
             Console.WriteLine("|2 - Atualizar Produção");
             Console.WriteLine("|3 - Deletar Produção");
@@ -24,18 +26,23 @@ namespace ProducaoMel.Views
         }
 
         public void AdicionarProducao()
-        {       
+        {
             Console.Clear();
             Console.WriteLine(" ==== CADASTRAR PRODUÇÃO DE MEL ====\n");
-            Console.WriteLine("Digite a data de colheita (dd/MM/yyyy): ");
+
+            Console.Write("Digite a data de colheita (dd/MM/yyyy): ");
             DateTime dataColheita = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", null);
-            Console.WriteLine("Digite o ID da colmeia: ");
+
+            Console.Write("Digite o ID da colmeia: ");
             int colmeiaID = int.Parse(Console.ReadLine());
-            Console.WriteLine("Digite o ID do mel: ");
+
+            Console.Write("Digite o ID do mel: ");
             int melID = int.Parse(Console.ReadLine());
-            Console.WriteLine("Digite a quantidade colhida: ");
+
+            Console.Write("Digite a quantidade colhida: ");
             double quantidadeColhida = double.Parse(Console.ReadLine());
-            Console.WriteLine("Digite a qualidade final: ");
+
+            Console.Write("Digite a qualidade final: ");
             string qualidadeFinal = Console.ReadLine();
 
             Producao producao = new Producao
@@ -50,7 +57,6 @@ namespace ProducaoMel.Views
             _producaoController.AddProducao(producao);
 
             Console.Clear();
-            Console.WriteLine("\nProdução adicionada com sucesso!\n");
         }
 
         public void AtualizarProducao()
@@ -58,51 +64,62 @@ namespace ProducaoMel.Views
             Console.Clear();
             Console.WriteLine(" ==== ATUALIZAR PRODUÇÃO DE MEL ====\n");
 
-            Console.WriteLine("Digite o ID da produção que deseja atualizar: ");
+            Console.Write("Digite o ID da produção que deseja atualizar: ");
             int lote = int.Parse(Console.ReadLine());
 
             Console.WriteLine();
-            ImpressaoProducaoPorID(lote);
-            Console.WriteLine();
+            var producaoExiste = ImpressaoProducaoPorID(lote);
 
-
-            Console.WriteLine("Digite a data de colheita (dd/MM/yyyy): ");
-            DateTime dataColheita = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", null);
-            Console.WriteLine("Digite o ID da colmeia: ");
-            int colmeiaID = int.Parse(Console.ReadLine());
-            Console.WriteLine("Digite o ID do mel: ");
-            int melID = int.Parse(Console.ReadLine());
-            Console.WriteLine("Digite a quantidade colhida: ");
-            double quantidadeColhida = double.Parse(Console.ReadLine());
-            Console.WriteLine("Digite a qualidade final: ");
-            string qualidadeFinal = Console.ReadLine();
-
-            Producao producao = new Producao
+            if (!producaoExiste)
             {
-                Lote = lote,
-                DataColheita = dataColheita,
-                ColmeiaID = colmeiaID,
-                MelID = melID,
-                QuantidadeColhida = quantidadeColhida,
-                QualidadeFinal = qualidadeFinal
-            };
+                return;
+            }
+            else
+            {
 
-            _producaoController.UpdateProducao(producao);
+                Console.WriteLine();
+
+                Console.Write("Digite a data de colheita (dd/MM/yyyy): ");
+                DateTime dataColheita = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", null);
+
+                Console.Write("Digite o ID da colmeia: ");
+                int colmeiaID = int.Parse(Console.ReadLine());
+
+                Console.Write("Digite o ID do mel: ");
+                int melID = int.Parse(Console.ReadLine());
+
+                Console.Write("Digite a quantidade colhida: ");
+                double quantidadeColhida = double.Parse(Console.ReadLine());
+
+                Console.Write("Digite a qualidade final: ");
+                string qualidadeFinal = Console.ReadLine();
+
+                Producao producao = new Producao
+                {
+                    Lote = lote,
+                    DataColheita = dataColheita,
+                    ColmeiaID = colmeiaID,
+                    MelID = melID,
+                    QuantidadeColhida = quantidadeColhida,
+                    QualidadeFinal = qualidadeFinal
+                };
+
+                _producaoController.UpdateProducao(producao);
+            }
 
             Console.Clear();
-            Console.WriteLine("\nProdução atualizada com sucesso!\n");
         }
 
         public void DeletarProducao()
         {
             Console.Clear();
             Console.WriteLine(" ==== DELETAR PRODUÇÃO DE MEL ====\n");
-            Console.WriteLine("Digite o ID da produção que deseja deletar: ");
+            Console.Write("Digite o ID da produção que deseja deletar: ");
             int id = int.Parse(Console.ReadLine());
             _producaoController.DeleteProducao(id);
 
             Console.Clear();
-            Console.WriteLine("\nProdução deletada com sucesso!\n");
+
         }
 
         public void ListarProducao()
@@ -127,18 +144,23 @@ namespace ProducaoMel.Views
                 Console.WriteLine($"Qualidade Final: {producao.QualidadeFinal}");
                 Console.WriteLine("---------------------------------------------------");
             }
+
             Console.WriteLine();
+            Console.Write("\nPressione qualquer tecla para continuar: ");
+            Console.ReadLine();
         }
 
         public void VisualizarProducaoPorID()
         {
             Console.Clear();
             Console.WriteLine(" ==== VISUALIZAR PRODUÇÕES DE MEL ====\n");
-            Console.WriteLine("Digite o ID da produção que deseja visualizar: ");
+            Console.Write("Digite o ID da produção que deseja visualizar: ");
             int id = int.Parse(Console.ReadLine());
+            Console.WriteLine();
+
             Producao producao = _producaoController.GetProducaoByLote(id);
 
-            if (producao != null)
+            if (producao.Lote != 0)
             {
                 Console.WriteLine($"ID: {producao.Lote}");
                 Console.WriteLine($"Data de Colheita: {producao.DataColheita:dd/MM/yyyy}");
@@ -146,23 +168,29 @@ namespace ProducaoMel.Views
                 Console.WriteLine($"ID do Mel: {producao.MelID}");
                 Console.WriteLine($"Quantidade Colhida: {producao.QuantidadeColhida}");
                 Console.WriteLine($"Qualidade Final: {producao.QualidadeFinal}\n");
+                Console.WriteLine();
             }
             else
             {
-                Console.WriteLine("\nProdução não encontrada!\n");
+                Console.WriteLine("\nNenhuma produção encontrada!\n");
             }
+
+            Console.WriteLine("\nPressione qualquer tecla para voltar ao menu...");
+            Console.ReadKey();
+            Console.Clear();
         }
 
-        public void ImpressaoProducaoPorID(int id)
+        public bool ImpressaoProducaoPorID(int id)
         {
             Producao producao = _producaoController.GetProducaoByLote(id);
 
-            if (producao != null)
+            if (producao.Lote == 0)
             {
-                Console.WriteLine("Produção não encontrada.");
+                Console.WriteLine("\nProdução não encontrada.");
                 Console.Write("\nPressione qualquer tecla para continuar: ");
                 Console.ReadLine();
-                ExecutarMenuProducao();
+                Console.Clear();
+                return false;
             }
 
             Console.WriteLine("\n--- PRODUÇÃO ATUAL ---\n");
@@ -172,7 +200,7 @@ namespace ProducaoMel.Views
             Console.WriteLine($"ID do Mel: {producao.MelID}");
             Console.WriteLine($"Quantidade Colhida: {producao.QuantidadeColhida}");
             Console.WriteLine($"Qualidade Final: {producao.QualidadeFinal}\n");
-            
+            return true;
         }
 
         public void ExecutarMenuProducao()

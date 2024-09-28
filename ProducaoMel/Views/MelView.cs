@@ -15,7 +15,7 @@ namespace ProducaoMel.Views
         public void MenuMel()
         {
             Console.Clear();
-            Console.WriteLine("===== MENU DE GESTÃO DE MEL =====");
+            Console.WriteLine("===== GESTÃO DE MEL =====\n");
             Console.WriteLine("|1 - Adicionar Mel");
             Console.WriteLine("|2 - Atualizar Mel");
             Console.WriteLine("|3 - Deletar Mel");
@@ -64,8 +64,6 @@ namespace ProducaoMel.Views
 
             _melController.AddMel(mel);
 
-            Console.WriteLine("\nMel adicionado com sucesso!\nPressione qualquer tecla para voltar ao menu...");
-            Console.ReadKey();
             Console.Clear();
         }
 
@@ -78,47 +76,51 @@ namespace ProducaoMel.Views
             int id = int.Parse(Console.ReadLine());
 
             Console.WriteLine();
-            ImprimirMelById(id);
-            Console.WriteLine();
-
-            Console.Write("Digite o nome do mel: ");
-            string nome = Console.ReadLine();
-
-            Console.Write("Digite a cor do mel: ");
-            string cor = Console.ReadLine();
-
-            Console.Write("Digite a consistência do mel: ");
-            string consistencia = Console.ReadLine();
-
-            Console.Write("Digite o sabor do mel: ");
-            string sabor = Console.ReadLine();
-
-            Console.Write("Digite o aroma do mel: ");
-            string aroma = Console.ReadLine();
-
-            Console.Write("Digite a composição do mel: ");
-            string composicao = Console.ReadLine();
-
-            Console.Write("Digite o ID da flor: ");
-            int florID = int.Parse(Console.ReadLine());
-
-
-            Mel mel = new Mel
+            var melExiste = ImprimirMelById(id);
+            if (!melExiste)
             {
-                ID = id,
-                Nome = nome,
-                Cor = cor,
-                Consistencia = consistencia,
-                Sabor = sabor,
-                Aroma = aroma,
-                Composicao = composicao,
-                FlorID = florID
-            };
+                return;
+            }
+            else
+            {
+                Console.WriteLine();
 
-            _melController.UpdateMel(mel);
+                Console.Write("Digite o nome do mel: ");
+                string nome = Console.ReadLine();
 
-            Console.WriteLine("\nMel atualizado com sucesso!\nPressione qualquer tecla para voltar ao menu...");
-            Console.ReadKey();
+                Console.Write("Digite a cor do mel: ");
+                string cor = Console.ReadLine();
+
+                Console.Write("Digite a consistência do mel: ");
+                string consistencia = Console.ReadLine();
+
+                Console.Write("Digite o sabor do mel: ");
+                string sabor = Console.ReadLine();
+
+                Console.Write("Digite o aroma do mel: ");
+                string aroma = Console.ReadLine();
+
+                Console.Write("Digite a composição do mel: ");
+                string composicao = Console.ReadLine();
+
+                Console.Write("Digite o ID da flor: ");
+                int florID = int.Parse(Console.ReadLine());
+
+
+                Mel mel = new Mel
+                {
+                    ID = id,
+                    Nome = nome,
+                    Cor = cor,
+                    Consistencia = consistencia,
+                    Sabor = sabor,
+                    Aroma = aroma,
+                    Composicao = composicao,
+                    FlorID = florID
+                };
+
+                _melController.UpdateMel(mel);
+            }
             Console.Clear();
         }
 
@@ -132,8 +134,6 @@ namespace ProducaoMel.Views
 
             _melController.DeleteMel(id);
 
-            Console.WriteLine("\nMel deletado com sucesso!\nPressione qualquer tecla para voltar ao menu...");
-            Console.ReadKey();
             Console.Clear();
         }
 
@@ -176,10 +176,11 @@ namespace ProducaoMel.Views
 
             Console.Write("Digite o ID do mel que deseja visualizar: ");
             int id = int.Parse(Console.ReadLine());
+            Console.WriteLine();
 
             Mel mel = _melController.GetMelByID(id);
 
-            if (mel != null)
+            if (mel.ID != 0)
             {
                 Console.WriteLine($"\nID: {mel.ID}");
                 Console.WriteLine($"Nome: {mel.Nome}");
@@ -189,6 +190,7 @@ namespace ProducaoMel.Views
                 Console.WriteLine($"Aroma: {mel.Aroma}");
                 Console.WriteLine($"Composição: {mel.Composicao}");
                 Console.WriteLine($"ID da flor: {mel.FlorID}");
+                Console.WriteLine();
             }
             else
             {
@@ -200,7 +202,7 @@ namespace ProducaoMel.Views
             Console.Clear();
         }
 
-        public void ImprimirMelById(int id)
+        public bool ImprimirMelById(int id)
         {
             Mel mel = _melController.GetMelByID(id);
 
@@ -209,10 +211,10 @@ namespace ProducaoMel.Views
                 Console.WriteLine("Mel não encontrada.");
                 Console.Write("\nPressione qualquer tecla para continuar: ");
                 Console.ReadLine();
-                ExecutarMenuMel();
+                return false;
             }
 
-            
+
             Console.WriteLine("\n--- MEL ATUAL ---\n");
             Console.WriteLine($"ID: {mel.ID}");
             Console.WriteLine($"Nome: {mel.Nome}");
@@ -222,6 +224,7 @@ namespace ProducaoMel.Views
             Console.WriteLine($"Aroma: {mel.Aroma}");
             Console.WriteLine($"Composição: {mel.Composicao}");
             Console.WriteLine($"ID da flor: {mel.FlorID}");
+            return true;
 
         }
 

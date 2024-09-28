@@ -16,22 +16,32 @@ namespace ProducaoMel.Controller
 
         public void AddMel(Mel mel)
         {
-            _floresRepository.GetFloresById(mel.FlorID.Value);
-            if (_floresRepository.GetFloresById(mel.FlorID.Value) == null)
+            var flor = _floresRepository.GetFloresById(mel.FlorID.Value);
+            if (flor.ID == 0)
             {
-                Console.WriteLine("Flor não encontrada");
+                Console.WriteLine("\nFlor não encontrada");
+                Console.Write("\nPressione qualquer tecla para continuar: ");
+                Console.ReadLine();
             }
-            _melRepository.AddMel(mel);
+            else 
+            { 
+                _melRepository.AddMel(mel);
+            }
         }
 
         public void UpdateMel(Mel mel)
         {
-            _floresRepository.GetFloresById(mel.FlorID.Value);
-            if (_floresRepository.GetFloresById(mel.FlorID.Value) == null)
+            var flor = _floresRepository.GetFloresById(mel.FlorID.Value);
+            if (flor.ID == 0)
             {
                 Console.WriteLine("Flor não encontrada");
+                Console.Write("Pressione qualquer tecla para continuar: ");
+                Console.ReadLine();
             }
-            _melRepository.UpdateMel(mel);
+            else
+            {
+                _melRepository.AddMel(mel);
+            }
         }
 
         public void DeleteMel(int id)

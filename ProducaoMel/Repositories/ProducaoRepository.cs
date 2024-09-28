@@ -30,11 +30,15 @@ namespace ProducaoMel.Repositories
 
                     if (linhasAfetadas == 0)
                     {
-                        Console.WriteLine("Erro ao inserir registro!");
+                        Console.WriteLine("\nErro ao inserir registro!");
+                        Console.Write("\nPressione qualquer tecla para continuar: ");
+                        Console.ReadLine();
                     }
                     else
                     {
-                        Console.WriteLine("Registro de Producao inserido com sucesso!");
+                        Console.WriteLine("\nRegistro de Producao inserido com sucesso!");
+                        Console.Write("\nPressione qualquer tecla para continuar: ");
+                        Console.ReadLine();
                     }
                 }
             }
@@ -62,11 +66,15 @@ namespace ProducaoMel.Repositories
 
                     if (linhasAfetadas == 0)
                     {
-                        Console.WriteLine("Erro ao atualizar registro!");
+                        Console.WriteLine("\nErro ao atualizar registro!");
+                        Console.Write("\nPressione qualquer tecla para continuar: ");
+                        Console.ReadLine();
                     }
                     else
                     {
-                        Console.WriteLine("Registro de Producao atualizado com sucesso!");
+                        Console.WriteLine("\nRegistro de Producao atualizado com sucesso!");
+                        Console.Write("\nPressione qualquer tecla para continuar: ");
+                        Console.ReadLine();
                     }
                 }
             }
@@ -89,11 +97,15 @@ namespace ProducaoMel.Repositories
 
                     if (linhasAfetadas == 0)
                     {
-                        Console.WriteLine("Erro ao deletar registro!");
+                        Console.WriteLine("\nErro ao deletar registro!");
+                        Console.Write("\nPressione qualquer tecla para continuar: ");
+                        Console.ReadLine();
                     }
                     else
                     {
-                        Console.WriteLine("Registro de Producao deletado com sucesso!");
+                        Console.WriteLine("\nRegistro de Producao deletado com sucesso!");
+                        Console.Write("\nPressione qualquer tecla para continuar: ");
+                        Console.ReadLine();
                     }
                 }
             }
