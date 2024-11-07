@@ -37,8 +37,6 @@ namespace ProducaoMel.Controller
             {
                 _producaoRepository.AddProducao(producao);
             }
-
-
         }
 
         public void UpdateProducao(Producao producao)
@@ -64,7 +62,6 @@ namespace ProducaoMel.Controller
             }
 
         }
-
         public void DeleteProducao(int id)
         {
             _producaoRepository.DeleteProducao(id);
